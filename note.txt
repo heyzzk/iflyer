@@ -1,0 +1,24 @@
+
+
+20150903
+需要买的
+新西达无刷电机电调	4	200
+飞桨			8	40
+mwc飞控			1	100
+机架			1	50
+电池			1	100
+遥控器			1	300
+代码烧录器？
+总计				790
+
+
+参考资料
+http://code.google.com/p/multiwii/downloads/list
+http://www.amobbs.com/thread-5546057-1-1.html
+http://yfrobot.com/forum.php?mod=viewthread&tid=2404&extra=page%3D1
+
+
+
+
+
+
