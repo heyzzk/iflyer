@@ -15,10 +15,97 @@ mwc飞控			1	100
 参考资料
 http://code.google.com/p/multiwii/downloads/list
 http://www.amobbs.com/thread-5546057-1-1.html
-http://yfrobot.com/forum.php?mod=viewthread&tid=2404&extra=page%3D1
+http://yfrobot.com/forum.php?mod=viewthread&tid=2404&extra=page%3D13
+
+飞控PID算法分析
+http://blog.csdn.net/do335maomao/article/details/43899003
+http://blog.csdn.net/super_mice/article/details/38436723
+
+
+
+
+20150912
+今天拿到最后一个零件电池，可以开始调试了。
+现在电调的油门可以校准了。
+校准方法：
+1.电调、电机、接收机掉电。
+2.打开遥控器，油门调到最大
+3.连接接收机等电路，电机短暂音乐后响两声，马上把油门拉到最低，听到确认的响声。
+这样就完成校准，可以控制了。
+
+另外，ch1不能用来校准，ch3可以，原因未知。
+
+跟这个视频类似
+http://v.youku.com/v_show/id_XNzQzNTg5Mzky.html?from=y1.2-1-98.4.8-1.1-1-2-7-0
 
 
 
 
 
 
+MultiWiiWinGUI 开源 地址
+https://code.google.com/p/mw-wingui/
+
+
+
+
+
+FTDI接上后一直是这个错误，后来发现是连线完全反过来了，连对了就OK。
+ avrdude: stk500_recv(): programmer is not responding
+ 
+ 
+ 
+ 
+MWC 打印log
+要用MultiWiiWinGUI才能抓出log
+#ifdef DEBUGMSG
+  debugmsg_append_str("go_disarm\n");//jack.zheng
+#endif
+ 
+ 
+ 
+ 
+ itoa 整形转字符串 用法
+   int main(void)     
+  {     
+        int  number   =   12345;     
+        char string[25];     
+        itoa(number, string,10);     
+        printf("integer   =   %d   string   =   %s\n",   number,   string);     
+        return   0;     
+  }
+  
+  
+  
+  
+  
+mwc连线
+主要分为以下5个部分：
+1、接收机接收部分
+2、电调、电机控制部分
+3、通信接口（用来烧录程序以及修改参数）
+4、蓝牙接口（后期调试非常有用，可以利用手机进行调试）
+5、I2C接口（扩展GPS模块）
+
+1、接收机接收部分：
+引脚对应关系如下，（这里以国产天七遥控做说明，其他控请参考遥控器手册）
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+MWC Pin:                       接收机 Pin：                         功能：
+   G                                  －                                   地，负极
+   V                                   +                                   电源，正极
+   D2                                 3                                    THRO，油门 
+   D4                                 1                                    ROLL，副翼
+   D5                                 2                                    PIT，升降
+   D6                                 4                                    YAW，方向
+   D7                                 5                                    MODEL，模式位  
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+注：这里只只有D2是通过GVS的3P线连接到飞控板的，其他通过单P线连接即可。因为遥控的所有接收端 GND和VCC是相通的。
+实物接线如下：
+
+
+
+
+
+http://www.yfrobot.com/forum.php?mod=viewthread&tid=2404
+
+http://blog.sina.com.cn/s/blog_8104d1d00100swia.html
