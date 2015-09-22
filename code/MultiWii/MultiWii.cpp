@@ -760,6 +760,9 @@ void setup() {
 }
 
 void go_arm() {
+  #ifdef DEBUGMSG
+  debugmsg_append_str("go_arm\n");//jack.zheng
+  #endif
   if(calibratingG == 0
   #if defined(ONLYARMWHENFLAT)
     && f.ACC_CALIBRATED 
@@ -812,6 +815,9 @@ void go_arm() {
   }
 }
 void go_disarm() {
+  #ifdef DEBUGMSG
+  debugmsg_append_str("go_disarm\n");//jack.zheng
+  #endif
   if (f.ARMED) {
     f.ARMED = 0;
     #ifdef LOG_PERMANENT
@@ -1291,6 +1297,29 @@ void loop () {
   previousTime = currentTime;
 
   computeIMU();
+
+#if 0//#ifdef DEBUGMSG
+  //char strtemp[24];
+  //char datatemp[8];
+  //memcpy(strtemp, 0, 24);
+  //strcat(strtemp, "accel=");
+  //itoa(imu.accADC[0], datatemp, 10);
+  //strcat(strtemp, datatemp);
+  //strcat(strtemp, ",");
+  //itoa(imu.accADC[1], datatemp, 10);
+  //strcat(strtemp, datatemp);
+  //strcat(strtemp, ",");
+  //itoa(imu.accADC[2], datatemp, 10);
+  //strcat(strtemp, datatemp);
+  //strcat(strtemp, " \r\n");
+  //debugmsg_append_str(strtemp);
+
+  char datatemp[8];
+  memcpy(datatemp, 0, 8);
+  itoa(imu.magADC[2], datatemp, 10);
+  strcat(datatemp, "\r\n");
+  debugmsg_append_str(datatemp);
+#endif
 
   //***********************************
   //**** Experimental FlightModes *****
