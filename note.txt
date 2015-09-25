@@ -201,7 +201,7 @@ http://code.google.com/p/multiwii/wiki/ESCsCalibration
 “如果是加油门最大也起飞不起来的话，请改滤波为20Mz一下”
 “我的也一样，才弄好，将你刷的固件里的42HZ改成20HZ就可以了，我的也是2.2的固件。不要看GUI没有关联。”
 起飞前必须校准加速度陀螺仪，气压计校准已经包含在陀螺仪里面。
-怎么打开MAG和BARO功能？
+怎么打开MAG和BARO功能？把GUI的对应H点亮，然后点write写入就变成默认的了。
 
 
 
@@ -334,7 +334,7 @@ FS-I6 中心点校准
 
 
 
-20150925
+20150924晚 白石洲
 第三次，成功了！起来会就往别的方向飘，不过反正能飞。。
 而且没开baro，靠油门维持高度很难，要么往上冲要么往下硬着陆。。
 好久没这么紧张兴奋了。。。
@@ -347,6 +347,31 @@ FS-I6 中心点校准
 
 
 
+
+
+
+MAG/BARO怎么保存到EEPROM的?怎么改代码让其默认打开。
+
+
+
+
+
+serialCom()
+串口协议解析。
+参考资料
+http://www.cnblogs.com/2cats/p/3501033.html
+http://wenku.baidu.com/link?url=yJJpOUkoHeGS2XQdIcc0yKiokxtMoSoHocOr44e89e_q7dUb082IlKGwfCm1hbQj4ITPkJNNoqU1iQpUN0Hofg5I6cU1iRs1ah6PwmJHFlG
+官方协议定义
+http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol
+
+
+
+
+
+MWC 32位
+https://github.com/multiwii/baseflight
+最新WINGUI
+http://eosbandi.com/downloads
 
 
 
