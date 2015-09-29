@@ -1,23 +1,23 @@
-
+﻿
 
 20150903
-��Ҫ���
-��������ˢ������	4	200
-�ɽ�			8	40
-mwc�ɿ�			1	100
-����			1	50
-���			1	100
-ң����			1	300
-������¼����
-�ܼ�				790
+需要买的
+新西达无刷电机电调	4	200
+飞桨			8	40
+mwc飞控			1	100
+机架			1	50
+电池			1	100
+遥控器			1	300
+代码烧录器？
+总计				790
 
 
-�ο�����
+参考资料
 http://code.google.com/p/multiwii/downloads/list
 http://www.amobbs.com/thread-5546057-1-1.html
 http://yfrobot.com/forum.php?mod=viewthread&tid=2404&extra=page%3D13
 
-�ɿ�PID�㷨����
+飞控PID算法分析
 http://blog.csdn.net/do335maomao/article/details/43899003
 http://blog.csdn.net/super_mice/article/details/38436723
 
@@ -25,17 +25,17 @@ http://blog.csdn.net/super_mice/article/details/38436723
 
 
 20150912
-�����õ����һ�������أ����Կ�ʼ�����ˡ�
-���ڵ�������ſ���У׼�ˡ�
-У׼������
-1.�������������ջ����硣
-2.��ң���������ŵ������
-3.���ӽ��ջ��ȵ�·������������ֺ������������ϰ�����������ͣ�����ȷ�ϵ�������
-���������У׼�����Կ����ˡ�
+今天拿到最后一个零件电池，可以开始调试了。
+现在电调的油门可以校准了。
+校准方法：
+1.电调、电机、接收机掉电。
+2.打开遥控器，油门调到最大
+3.连接接收机等电路，电机短暂音乐后响两声，马上把油门拉到最低，听到确认的响声。
+这样就完成校准，可以控制了。
 
-���⣬ch1��������У׼��ch3���ԣ�ԭ��δ֪��
+另外，ch1不能用来校准，ch3可以，原因未知。
 
-�������Ƶ����
+跟这个视频类似
 http://v.youku.com/v_show/id_XNzQzNTg5Mzky.html?from=y1.2-1-98.4.8-1.1-1-2-7-0
 
 
@@ -43,21 +43,21 @@ http://v.youku.com/v_show/id_XNzQzNTg5Mzky.html?from=y1.2-1-98.4.8-1.1-1-2-7-0
 
 
 
-MultiWiiWinGUI ��Դ ��ַ
+MultiWiiWinGUI 开源 地址
 https://code.google.com/p/mw-wingui/
 
 
 
 
 
-FTDI���Ϻ�һֱ��������󣬺���������������ȫ�������ˣ������˾�OK��
+FTDI接上后一直是这个错误，后来发现是连线完全反过来了，连对了就OK。
  avrdude: stk500_recv(): programmer is not responding
  
  
  
  
-MWC ��ӡlog
-Ҫ��MultiWiiWinGUI����ץ��log
+MWC 打印log
+要用MultiWiiWinGUI才能抓出log
 #ifdef DEBUGMSG
   debugmsg_append_str("go_disarm\n");//jack.zheng
 #endif
@@ -65,7 +65,7 @@ MWC ��ӡlog
  
  
  
- itoa ����ת�ַ��� �÷�
+ itoa 整形转字符串 用法
    int main(void)     
   {     
         int  number   =   12345;     
@@ -79,28 +79,28 @@ MWC ��ӡlog
   
   
   
-mwc����
-��Ҫ��Ϊ����5�����֣�
-1�����ջ����ղ���
-2�������������Ʋ���
-3��ͨ�Žӿڣ�������¼�����Լ��޸Ĳ�����
-4�������ӿڣ����ڵ��Էǳ����ã����������ֻ����е��ԣ�
-5��I2C�ӿڣ���չGPSģ�飩
+mwc连线
+主要分为以下5个部分：
+1、接收机接收部分
+2、电调、电机控制部分
+3、通信接口（用来烧录程序以及修改参数）
+4、蓝牙接口（后期调试非常有用，可以利用手机进行调试）
+5、I2C接口（扩展GPS模块）
 
-1�����ջ����ղ��֣�
-���Ŷ�Ӧ��ϵ���£��������Թ�������ң����˵������������ο�ң�����ֲᣩ
-����������������������������������������������������������������������
-MWC Pin:                       ���ջ� Pin��                         ���ܣ�
-   G                                  ��                                   �أ�����
-   V                                   +                                   ��Դ������
-   D2                                 3                                    THRO������ 
-   D4                                 1                                    ROLL������
-   D5                                 2                                    PIT������
-   D6                                 4                                    YAW������
-   D7                                 5                                    MODEL��ģʽλ  
-����������������������������������������������������������������������
-ע������ֻֻ��D2��ͨ��GVS��3P�����ӵ��ɿذ�ģ�����ͨ����P�����Ӽ��ɡ���Ϊң�ص����н��ն� GND��VCC����ͨ�ġ�
-ʵ��������£�
+1、接收机接收部分：
+引脚对应关系如下，（这里以国产天七遥控做说明，其他控请参考遥控器手册）
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+MWC Pin:                       接收机 Pin：                         功能：
+   G                                  －                                   地，负极
+   V                                   +                                   电源，正极
+   D2                                 3                                    THRO，油门 
+   D4                                 1                                    ROLL，副翼
+   D5                                 2                                    PIT，升降
+   D6                                 4                                    YAW，方向
+   D7                                 5                                    MODEL，模式位  
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+注：这里只只有D2是通过GVS的3P线连接到飞控板的，其他通过单P线连接即可。因为遥控的所有接收端 GND和VCC是相通的。
+实物接线如下：
 
 
 
@@ -115,57 +115,57 @@ http://blog.sina.com.cn/s/blog_8104d1d00100swia.html
 
 
 ACCEL
-��ָ�����ʱ��ֵӦ��Ϊ��1G��
+轴指向地心时，值应该为负1G。
 MAG
-��ָ������ʱ��ֵӦ��Ϊ�����ֵ��
+轴指向正北时，值应该为正最大值。
 
 
 
 
 
 
-angle��Ӧ�ó���������ģʽ��ҡ�˻��к��Զ�����ˮƽ����ʲôʱ����ˮƽ��̬Ϊ��׼�ġ�
-horizon������ȫ�ֶ�������֮�䣬ҡ�˻���ʱ���ֵ�ǰ״̬ʵʱ������̬��ʼλ��
-����˵ѡ��horizonģʽ�󣬷ɻ���б�Ƕ�С��45���ʱ��ҡ�˻���ʱ���ɻ��ͻ��Զ��ָ�ˮƽ�����ȣ���
-�ɻ���б�Ƕȴ���45��ʱ���ͻ�䵽�ֶ�ģʽ��ҡ�˻���ʱ���ɻ�����ָ�ˮƽ��
-BARO����ѹ����
-MAG���شŷ���������������ҡ��ʱ���򱣳֣����ᱻ�ⲿ����Ӱ��
-CAMSTAB����̨����
-ARM������
-HEADFREE����ͷģʽ�������ڽ���ǰ���������һ��ʱ����������������������صķ��������ǰһ��
-HEADADJ������ָ����ͷģʽ�ķ����迴�嵱ǰ��ͷβ���򣬰���ǰ����ȷ����ͷģʽ
+angle：应该常开，自稳模式，摇杆回中后自动保持水平，是什么时候都以水平姿态为基准的。
+horizon：介于全手动与自稳之间，摇杆回中时保持当前状态实时更新姿态初始位置
+好像说选择horizon模式后，飞机倾斜角度小于45°的时候，摇杆回中时，飞机就会自动恢复水平（自稳）。
+飞机倾斜角度大于45°时，就会变到手动模式，摇杆回中时，飞机不会恢复水平。
+BARO：气压定高
+MAG：地磁方向锁定，即不动摇杆时方向保持，不会被外部风力影响
+CAMSTAB：云台控制
+ARM：解锁
+HEADFREE：无头模式，例如在解锁前，方向与控一致时，解锁后，无论如何自旋，控的方向与解锁前一致
+HEADADJ：重新指定无头模式的方向，需看清当前的头尾方向，按当前方向确定无头模式
 
-mwc�ĵ���ͨ������angle��
-
-
+mwc的第五通道就是angle。
 
 
 
 
 
-�ں����У�pitch, yaw, roll��
-pitch��Χ��X����ת��Ҳ���������ǡ�
-yaw��Χ��Y����ת��Ҳ��ƫ���ǡ�
-roll��Χ��Z����ת��Ҳ�з����ǡ�
+
+
+在航空中，pitch, yaw, roll，
+pitch是围绕X轴旋转，也叫做俯仰角。
+yaw是围绕Y轴旋转，也叫偏航角。
+roll是围绕Z轴旋转，也叫翻滚角。
 
 
 
 
 
-��ѹ������ ����
-����صĳ��ڣ����߶�3s������3�����߶�2s��1s��-��
+电压报警器 连线
+连电池的充电口，红线对3s，其他3根黑线对2s、1s、-。
 
 
 
-wmc 2.5�İ��ӣ���pitch roll yaw�ķ����ϣ�����Ҫ�Ķ���ֻҪ��CRIUS_SE_v2_0������ȷ�ġ�
+wmc 2.5的板子，在pitch roll yaw的方向上，不需要改动，只要打开CRIUS_SE_v2_0就是正确的。
 
 
 
 
 20150922
-����ȥ��2��������У׼�����������κθĶ��Ϳ�����ͦ�ȶ���
-������һ����ʽ�Էɣ�ʧ�ܡ�
-�������򻬣�������ֱ�ӵ������ˣ��������õ���˿����������ԡ�
+今晚去掉2个螺旋桨校准参数，不用任何改动就看起来挺稳定。
+今晚第一次正式试飞，失败。
+螺旋桨打滑，抖动，直接掉出来了，明天能拿到铁丝，绑紧了再试。
 
 
 
@@ -173,97 +173,97 @@ wmc 2.5�İ��ӣ���pitch roll yaw�ķ����ϣ�����Ҫ�Ķ���ֻҪ��CRIUS_SE_v2_0������
 
 
 
-���Ǵ򿪾���ʹ��channel 6
+这是打开就是使用channel 6
 #define RCAUXPIN8
 
 
 
 
-20150923 �ڶ��β���-ʧ��
-�����ϴ������������ȷ����������������ٲ��Ի��������������Ѿ��ӵ����
-���Ҳ���е�� 4.1v��
-�ӵ�������ţ���һ���ڶ�����Ȼ��ʧ�⣬�򵽵��ϣ����ö�û����
+20150923 第二次测试-失败
+用塑料带绑紧螺旋桨，确保桨不会掉出来，再测试还是起不来，油门已经加到最大，
+电池也是有电的 4.1v。
+加到最大油门，有一边在抖动，然后失衡，打到地上，还好都没坏。
 
 
-����debug
-�����log�ص���FTDI�ε�������һ�Ρ��Ƿ���������˲��йأ�
-pitch roll����1500����Ҫ���ڣ�
-��ͨ�˲��� 98Hz����42Hz?
-Ϊʲô��һ������������������£�Ҳ���Զ�ת�������ǳ���֡�
-1������У׼��2�����ȹص���3������pid��
-���㶨�ˣ����ǵ���г�û��У׼�� ֱ��ʹ��MWC����������һ��У׼�г̵����ã�1���Ӿ͸㶨�ˡ���---����
+问题debug
+明天把log关掉，FTDI拔掉，再试一次。是否和陀螺仪滤波有关？
+pitch roll不在1500，需要调节？
+低通滤波器 98Hz或者42Hz?
+为什么有一个桨，在上锁的情况下，也能自动转起来，非常奇怪。
+1，油门校准，2把自稳关掉，3调整好pid？
+“搞定了，就是电调行程没有校准。 直接使用MWC代码里面有一个校准行程的配置，1分钟就搞定了。”---网贴
 http://code.google.com/p/multiwii/wiki/ESCsCalibration
-�������ɹ����mwc��Ĭ�ϲ�����450���ܣ���ͨ�˲�98hz��2212kv980 ��
-���ǰ��ACCEL/GYRO/MAGУ׼��
-��¥���������ҿ��԰����������Ȱ�¥���Ŀص����ţ��������������������ĸ�ͨ���������ϸ�����ߵ�λ1095����1500����1995���Ժã�
-Ȼ�����ˢ�̼����򿪹̼��ѹ̼���ĵ���������΢���ߣ�30Ϊһ�����Σ�Ȼ��д��̼������ϵ�ز��Խ������������ĸ�����ǲ���һ��ת��
-������ǣ������������ŵ������á��Դ����ơ����ðѽ�������ͣת��������֤���ܷ������������ĸ�����������г̱�����һ���ĵ���ͬʱУ׼����
-������Ǽ��������Ҳ��ɲ������Ļ�������˲�Ϊ20Mzһ�¡�
-���ҵ�Ҳһ������Ū�ã�����ˢ�Ĺ̼����42HZ�ĳ�20HZ�Ϳ����ˣ��ҵ�Ҳ��2.2�Ĺ̼�����Ҫ��GUIû�й�������
-���ǰ����У׼���ٶ������ǣ���ѹ��У׼�Ѿ����������������档
-��ô��MAG��BARO���ܣ���GUI�Ķ�ӦH������Ȼ���writeд��ͱ��Ĭ�ϵ��ˡ�
+“今晚成功起飞mwc，默认参数，450机架，底通滤波98hz，2212kv980 ”
+起飞前做ACCEL/GYRO/MAG校准？
+“楼主的问题我可以帮你解决，首先把楼主的控的油门，升降，副翼，方向这四个通道的数据严格按照最高低位1095，中1500，高1995调试好，
+然后从新刷固件，打开固件把固件里的怠速设置稍微调高，30为一个档次，然后写入固件，再上电池测试解锁后推油门四个电机是不是一起转，
+如果不是，继续调高油门怠速设置。以此类推。还得把解锁马达停转开启；保证你能飞起来。但是四个电调的油门行程必须用一分四的线同时校准。”
+“如果是加油门最大也起飞不起来的话，请改滤波为20Mz一下”
+“我的也一样，才弄好，将你刷的固件里的42HZ改成20HZ就可以了，我的也是2.2的固件。不要看GUI没有关联。”
+起飞前必须校准加速度陀螺仪，气压计校准已经包含在陀螺仪里面。
+怎么打开MAG和BARO功能？把GUI的对应H点亮，然后点write写入就变成默认的了。
 
 
 
 
 
 
-alarms.cpp //���������������led��˸�ƿ��ơ�
+alarms.cpp //警报，如蜂鸣器、led闪烁灯控制。
 
 
 
-��������pin8��
+蜂鸣器接pin8？
 #define BUZZERPIN_PINMODE         DDRB |= 1; // Arduino pin 8
 
 
 
 
 
-GCCAVR(avr-libc)�����Դ���EEPROM�Ķ�д������ 
-�����оٲ��ֳ��ú���(ԭ��) 
+GCCAVR(avr-libc)里面自带了EEPROM的读写函数。 
+下面列举部分常用函数(原型) 
 
 #define eeprom_is_ready() bit_is_clear(EECR, EEWE) 
-���EEPROM�Ƿ�׼���á�OK����1������EEWEλ�� 
+检测EEPROM是否准备好。OK返回1（返回EEWE位） 
 
 #define eeprom_busy_wait() do {} while (!eeprom_is_ready()) 
-�ȴ�EEPROM������� 
+等待EEPROM操作完成 
 
 extern uint8_t eeprom_read_byte (const uint8_t *addr); 
-��ȡָ����ַ��һ���ֽ�8bit��EEPROM���� 
+读取指定地址的一个字节8bit的EEPROM数据 
 
 extern uint16_t eeprom_read_word (const uint16_t *addr); 
-��ȡָ����ַ��һ����16bit��EEPROM���� 
+读取指定地址的一个字16bit的EEPROM数据 
 
 extern void eeprom_read_block (void *buf, const void *addr, size_t n); 
-��ȡ��ָ����ַ��ʼ��ָ�����ȵ�EEPROM����
+读取由指定地址开始的指定长度的EEPROM数据
 
 extern void eeprom_write_byte (uint8_t *addr, uint8_t val); 
-��ָ����ַд��һ���ֽ�8bit��EEPROM���� 
+向指定地址写入一个字节8bit的EEPROM数据 
 
 extern void eeprom_write_word (uint16_t *addr, uint16_t val); 
-��ָ����ַд��һ����16bit��EEPROM���� 
+向指定地址写入一个字16bit的EEPROM数据 
 
 extern void eeprom_write_block (const void *buf, void *addr, size_t n); 
-��ָ����ַ��ʼд��ָ�����ȵ�EEPROM���ݣ�����֧�ֲ���AVR
+由指定地址开始写入指定长度的EEPROM数据，但不支持部分AVR
 
 
 
 
 
 uint32 mills()
-���ڵõ��ӳ���ʼ����������ʱ�䣬mills()���������Ժ����ʾ��ʱ��
+用于得到从程序开始运行以来的时间，mills()函数返回以毫秒表示的时间
 uint32 micros()
-����������΢���ʾ��ʱ��
+函数返回以微秒表示的时间
 
-����ʱ�������Զ����㿪ʼ������mills()�������ڳ�������Լ50����������micros()���ڳ�������Լ70���Ӻ����.
+当计时溢出后会自动从零开始计数，mills()函数会在程序运行约50天后溢出，而micros()会在程序运行约70分钟后溢出.
 
 
 
 
 
 computeIMU();
-���Ե���ģ�飬Ӧ�þ���orientation fusion���񣬰�rawdata�ϳ�Ϊpitch��roll��yaw��
-�������
+惯性导航模块，应该就是orientation fusion服务，把rawdata合成为pitch、roll、yaw。
+相关资料
 http://wenku.baidu.com/link?url=oFtP4yvYxYoaMDaNXcI7Dc2PZAyq24lE1bnq65_HzPDqc-o1ef0josC-YT2vJj9L3u0NV7oPfhLSjhGmi5oKebXWsRNZRl0i9P-NSQsuzA3
 
 
@@ -271,13 +271,13 @@ http://wenku.baidu.com/link?url=oFtP4yvYxYoaMDaNXcI7Dc2PZAyq24lE1bnq65_HzPDqc-o1
 
 
 
-mwc��ѯƵ��
+mwc轮询频率
   #define LOOP_TIME 2800
   while(1) {
-    currentTime = micros();//��ȡʱ��us
+    currentTime = micros();//获取时间us
     cycleTime = currentTime - previousTime;
     #if defined(LOOP_TIME)
-      if (cycleTime >= LOOP_TIME) break;//2800us����357Hz
+      if (cycleTime >= LOOP_TIME) break;//2800us，即357Hz
     #else
       break;  
     #endif
@@ -289,108 +289,110 @@ mwc��ѯƵ��
   
   
   
-  computeRC();//����������ѯ
-  ��ȡ8��ͨ����rawdata�������ȶ����㣬ͨ����ֵ���浽rcData[channel]��
+  computeRC();//被主函数轮询
+  读取8个通道的rawdata，经过稳定计算，通道数值保存到rcData[channel]。
   
-  ͨ�����ݱ仯��������жϴ���(STANDARD_RX)
+  通道数据变化都会进入中断处理(STANDARD_RX)
   ISR(RX_PC_INTERRUPT) {}
-  ����  #define RX_PC_INTERRUPT   PCINT2_vect
-  ����� PCINT2_vect Ӧ����D10�ţ�Ҳ���ǽӵ����������ţ�Ϊʲô�ǽ����жϽţ�
-  ������󣬵õ�rcValue[channel]��ֵ��
-  ����󣬵õ�rcData[channel]��ֵ��
+  其中  #define RX_PC_INTERRUPT   PCINT2_vect
+  很奇怪 PCINT2_vect 应该是D10脚，也就是接到电调的输出脚，为什么是接收中断脚？
+  反正最后，得到rcValue[channel]的值。
+  最最后，得到rcData[channel]的值。
   
-  rx.cpp�൱�ڽ��ջ�������Ҳ���ǰ�rcData[]��������
-  
-  
+  rx.cpp相当于接收机驱动，也就是把rcData[]读出来。
   
   
   
-ȫ���жϽ�ֹ
+  
+  
+全局中断禁止
 cli();
 
-ȫ���жϿ���
+全局中断开启
 sei();
 
 
 
 
 
-����-YDM--MWC 2015/9/24 22:47:27
-������ȴ򿪣�Ȼ�󣬰� baro mag H�Ǹ����㿪��Ȼ�� д�뱣��
-����-YDM--MWC 2015/9/24 22:48:12
-������ˣ��һ�ˢ2.3�ء�����
+苏州-YDM--MWC 2015/9/24 22:47:27
+你把自稳打开，然后，把 baro mag H那个给点开，然后 写入保存
+苏州-YDM--MWC 2015/9/24 22:48:12
+差点忘了，我还刷2.3呢。。。
 
-���� Jack 2015/9/24 22:48:37
-������������
-
-
-
-
-
-FS-I6 ���ĵ�У׼
-��setup->subtrim����¼ȿɣ�����һ�߿���ϵ���GUI����������׼��
+深圳 Jack 2015/9/24 22:48:37
+厉害，可以了
 
 
 
 
 
-20150924�� ��ʯ��
-�����Σ��ɹ��ˣ������������ķ���Ʈ�����������ܷɡ���
-����û��baro��������ά�ָ߶Ⱥ��ѣ�Ҫô���ϳ�Ҫô����Ӳ��½����
-�þ�û��ô�����˷��ˡ�����
-ԭ��Ŀǰ��û��ȫ���壬��Сʱǰ�����������ˡ���
-��Ҫ�Ǹ���GYRO��ͨ�˲�#define GYRO_LPF_20HZ��Ӧ�þ���������Ժ����
-�����ǵ�ع̶����м��ˣ���Ȼ��ƫ��
-
-���⣬�и��������֣���ʱ������Ų�������ʱ�����������Լ������ǳ����죬
-��ɫ�ۣ������ĸ����ˡ���
+FS-I6 中心点校准
+在setup->subtrim里调下既可，可以一边看配合电脑GUI软件调，更准。
 
 
 
 
 
+20150924晚 白石洲
+第三次，成功了！起来会就往别的方向飘，不过反正能飞。。
+而且没开baro，靠油门维持高度很难，要么往上冲要么往下硬着陆。。
+好久没这么紧张兴奋了。。。
+原因：目前还没完全搞清，半小时前还满油门起不了。。
+这要是改了GYRO低通滤波#define GYRO_LPF_20HZ，应该就是这个，以后深究。
+另外是电池固定在中间了，不然会偏。
 
-MAG/BARO��ô���浽EEPROM��?��ô�Ĵ�������Ĭ�ϴ򿪡�
+另外，有个电机很奇怪，有时候加油门不动，有时候在上锁后还自己动，非常诡异，
+蓝色臂，具体哪个忘了。。
+
+
+
+
+
+
+MAG/BARO怎么保存到EEPROM的?怎么改代码让其默认打开。
 
 
 
 
 
 serialCom()
-����Э�������
-�ο�����
+串口协议解析。
+参考资料
 http://www.cnblogs.com/2cats/p/3501033.html
 http://wenku.baidu.com/link?url=yJJpOUkoHeGS2XQdIcc0yKiokxtMoSoHocOr44e89e_q7dUb082IlKGwfCm1hbQj4ITPkJNNoqU1iQpUN0Hofg5I6cU1iRs1ah6PwmJHFlG
-�ٷ�Э�鶨��
+官方协议定义
 http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol
 
 
 
 
 
-MWC 32λ
+MWC 32位
 https://github.com/multiwii/baseflight
-����WINGUI
+最新WINGUI
 http://eosbandi.com/downloads
 
 
 
 
 
-20150927
-����ȥ����֮��ͣ����ˬ���ˣ���
-��Ҫ�ǽ�����һ�����⣬����BARO��ѹ�Ƶ�ʹ�ã��÷������ڷ�����֮���ٴ���ѹ�ơ�
-�����û��ɣ�����ѹ�ƾ�������Ŷ��ɲ�������
-���������Ǹ�����ʽ���أ���һ�ζ��رգ��ڶ��δ�ANGLE&MAG�������ξ���ANGLE&MAG&BARO��
+20150926 晚上
+今晚去世界之窗停车场爽飞了！！
+主要是今天解决一个问题，就是BARO气压计的使用，用法就是在飞起来之后再打开气压计。
+如果还没起飞，打开气压计就最大油门都飞不起来。
+所以用了那个三段式开关，第一段都关闭，第二段打开ANGLE&MAG，第三段就是ANGLE&MAG&BARO。
 
-��Ȼ�е���������ǰ��Ʈ���������ȶ�����Ҫ�Ǹ��˲������⣬һ��������ʧ��
-��Ϊ�Ա߾������ϴ����һ���Ǳ�Ʈ���ҾͲ����ŵ�����ʧ��
-������Ƿ�̫ԶҲ��ܽ��ţ���Ϊ����̫����ˣ��ɻ���ǰ��Ҳ�ֲ�̫�壬�����Ҫ�Ľ�����LED�Ʊ�ʾ��
-����Ƿ�̫�ߣ��������䣬��������������ˣ�����ֻ�����һ���������ⲻ�󣬲���Ҳ�ǽ��ŵ�û�������ػ�����
+虽然有点上下左右前后飘，但还算稳定，主要是个人操作问题，一紧张容易失误，
+因为旁边就是深南大道，一往那边飘，我就不紧张到控制失误。
+另外就是飞太远也会很紧张，因为看不太清楚了，飞机的前后也分不太清，这个需要改进，加LED灯标示。
+最后是飞太高，暴力降落，结果整个翻过来了，还是只打掉了一个桨，问题不大，不过也是紧张到没有立即关机。。
 
-����2���Ľ���
-1.��LED�Ʊ�ʾ���Ա㿴��ɻ���̬��
-2.ң��������SWB����ΪARM���Ա��������������ͣ����
+所以2个改进，
+1.加LED灯标示，以便看清飞机姿态；
+2.遥控器开关SWB设置为ARM，以便有问题可以立即停机。
+
+还有一点是，手机绑在机架上，上去拍的视频相当不清晰，可能是抖动太大了，看怎么低成本改进。
 
 
 
