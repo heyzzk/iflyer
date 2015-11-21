@@ -397,6 +397,67 @@ http://eosbandi.com/downloads
 
 
 
+气压计逻辑
+getEstimatedAltitude()
+轮询频率40HZ
+
+if(calibratingB > 0)//首先判断是否需要校准，这个值有2个地方赋值，setup()和手动校准。
+
+
+
+
+
+
+20151121 这段时间不太顺利，操作不熟练，每次飞都摔，最近才修好，还没试飞。重新开始看代码。
+/********************************代码阅读 start********************************/
+主函数控制轮询频率用的是阻塞方式
+默认阻塞时间是LOOP_TIME=2800us
+如果每打一行log需要消耗1ms，是不是很影响性能？可以做个实验，micros()。
+
+
+
+
+
+官方串口通信协议
+http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol
+
+serialCom()串口收发处理
+LOOP_TIME阻塞完成后，执行computeIMU()-》annexCode()-》serialCom()，读取串口消息。
+
+消息格式
+<preamble>,<direction>,<size>,<command>,<data>,<crc>
+$M< MWC接收到GUI的消息
+$M> MWC发送消息给GUI
+
+serialCom()接收识别出package，最后由evaluateCommand()函数去解析具体的命令。
+s_struct(uint8_t *cb,uint8_t siz)用于发送消息到GUI。
+比如GUI读取飞控版本号，发送MSP_IDENT到飞控，飞控会通过s_struct（）返回数据。
+读取飞控sensor rawdata也是一样的，发送MSP_RAW_IMU，飞控就会返回数据，这样看起来比较消耗时间,连着GUI飞行的时候，会不会太消耗时间，影响PID的轮询时间？需要确认。
+所以，是GUI需要什么数据，就发送什么请求。
+
+从GUI读到的数据通过下面的函数读到conf里面，
+s_struct_w((uint8_t*)&conf.xxxx,size);
+
+conf是个全局变量，保存着飞机当前的与GUI界面对应的配置变量，在GUI界面配置完成后，可以通过MSP_EEPROM_WRITE命令把配置写到EEPROM。
+
+
+可以自己加个消息定义，用来调试。
+
+TODO:看看遥控信号的解析。
+
+
+
+
+
+Protect the barometric sensor from light and air turbulence (a black plastic tube glued on the pcb with some foam inside or anything else)
+气压计需要防强气流
+
+
+/********************************代码阅读 end**********************************/
+
+
+
+
 
 
 
