@@ -296,11 +296,17 @@
       #endif 
     #endif
   #else
-    #define BUZZERPIN_PINMODE          ;
-    #define BUZZERPIN_ON               ;
-    #define BUZZERPIN_OFF              ;
+    //#define BUZZERPIN_PINMODE          ;
+    //#define BUZZERPIN_ON               ;
+    //#define BUZZERPIN_OFF              ;
     #define RCAUXPIN
+
+    //modify by jack.zheng for config beeper
+    #define BUZZERPIN_PINMODE          pinMode(12,OUTPUT);//DDRB |= 1;//D12=PB4//just set D12 as output, D8 is input.
+    #define BUZZERPIN_ON               PORTB &= ~(1<<4);
+    #define BUZZERPIN_OFF              PORTB |= (1<<4);
   #endif
+  
   #if !defined(RCAUXPIN12) && !defined(DISABLE_POWER_PIN)
     #define POWERPIN_PINMODE           DDRB |= 1<<4; // Arduino pin 12
     #define POWERPIN_ON                PORTB |= 1<<4;
@@ -367,9 +373,13 @@
   #define SERVO_2_PINMODE            DDRC |= 1<<1; // pin A1  // TILT_ROLL  - WING right
   #define SERVO_2_PIN_HIGH           PORTC |= 1<<1;
   #define SERVO_2_PIN_LOW            PORTC &= ~(1<<1);
-  #define SERVO_3_PINMODE            DDRC |= 1<<2; // pin A2  // CAM TRIG  - alt TILT_PITCH
-  #define SERVO_3_PIN_HIGH           PORTC |= 1<<2;
-  #define SERVO_3_PIN_LOW            PORTC &= ~(1<<2);
+  #define SERVO_3_PINMODE            //DDRC |= 1<<2; // pin A2  // CAM TRIG  - alt TILT_PITCH
+  #define SERVO_3_PIN_HIGH           //PORTC |= 1<<2;
+  #define SERVO_3_PIN_LOW            //PORTC &= ~(1<<2);
+  //Add by jack.zheng for LED lamp
+  #define LAMPPIN_PINMODE            DDRC |= 1<<2; // pin A2 
+  #define LAMPPIN_ON                 PORTC &= ~(1<<2);
+  #define LAMPPIN_OFF                PORTC |= 1<<2;
   #if !defined(MONGOOSE1_0)
     #define SERVO_4_PINMODE            DDRB |= 1<<4; // pin 12  // new       - alt TILT_ROLL
     #define SERVO_4_PIN_HIGH           PORTB |= 1<<4;

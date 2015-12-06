@@ -459,5 +459,48 @@ Protect the barometric sensor from light and air turbulence (a black plastic tub
 
 
 
+无线串口的波特率也要配置成115200才行。
 
 
+
+
+
+20151121 晚上 大沙河公园
+第一次全身而退，没有损伤就回来了。换了电调后第一次试飞，其中2个桨也是新的，比那2个软一点。
+在草地试飞飞不起来，前右提起来就翻了，还以为是不行。
+后来没辙，去航模广场水泥平地，很稳就飞起来了。不过没有GPS，还是飘，能控制回来，但是上下飘的就不 好控制，开了气压计应该是可以稳定在1m内？（可能是<<<<<<气流太大导致高度漂移严重，要隔离下>>>>>>>）
+
+还有，挂了航拍架上HTC去没有问题，后来一加上去，因为螺丝松了，飞上去后，手机抖动，飞机也会摆动。
+所以<<<<<<机身上不能有会摆动的重物，以免影响稳定性>>>>>>>。
+
+
+
+
+
+
+
+看到一种新的飞控CC3D，用来飞3D穿越的。
+
+
+
+
+
+WMC 32位版
+Baseflight VS Cleanflight – Which is better?//两种基于WMC的32位固件对比（应该是Cleanflight更好）
+http://blog.oscarliang.net/baseflight-cleanflight-comparison/
+
+Cleanflight
+https://github.com/cleanflight/cleanflight
+
+Ubuntu下编译 cleanflight
+http://blog.csdn.net/span76/article/details/49795751
+https://github.com/cleanflight/cleanflight/blob/master/docs/development/Building%20in%20Ubuntu.md
+
+
+
+
+
+
+
+MWC气压定高算法分析
+http://bbs.loveuav.com/thread-144-1-1.html

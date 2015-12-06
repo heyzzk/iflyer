@@ -645,6 +645,7 @@ void setup() {
   BUZZERPIN_PINMODE;
   STABLEPIN_PINMODE;
   POWERPIN_OFF;
+  LAMPPIN_PINMODE;LAMPPIN_OFF;//jack.zheng 20151202
   initOutput();
   readGlobalSet();
   #ifndef NO_FLASH_CHECK
@@ -1003,6 +1004,10 @@ void loop () {
         #if MAG
           else if (rcSticks == THR_HI + YAW_HI + PIT_LO + ROL_CE) f.CALIBRATE_MAG = 1;  // throttle=max, yaw=right, pitch=min
         #endif
+		#if 1//add by jack.zheng
+		  else if (rcSticks == THR_HI + YAW_HI + PIT_CE + ROL_CE) {LAMPPIN_ON;}
+		  else if (rcSticks == THR_HI + YAW_CE+ PIT_CE + ROL_CE) {LAMPPIN_OFF;}
+		#endif
         i=0;
         if      (rcSticks == THR_HI + YAW_CE + PIT_HI + ROL_CE) {conf.angleTrim[PITCH]+=2; i=1;}
         else if (rcSticks == THR_HI + YAW_CE + PIT_LO + ROL_CE) {conf.angleTrim[PITCH]-=2; i=1;}
